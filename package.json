@@ -1,0 +1,23 @@
+{
+  "name": "node-red-contrib-autologyx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "autologyx-api.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "node-red": {
+    "nodes": {
+      "lower-case": "autologyx-api.js"
+    }
+  },
+  "devDependencies": {
+    "jest": "^23.2.0"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "lodash": "^4.17.10"
+  }
+}

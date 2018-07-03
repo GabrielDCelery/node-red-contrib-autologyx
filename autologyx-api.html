@@ -1,0 +1,131 @@
+<script type="text/javascript">
+    function initConditionalChildFields (_group) {
+        var _$parentSelectField = document.querySelector('#node-input-' + _group);
+        var _$childFields = Array.prototype.slice.call(document.querySelectorAll('.' + _group));
+
+        _$parentSelectField.addEventListener('change', function (_event) {
+            _$childFields.map(function (_$field) {
+                return _$field.style.display = 'none';
+            });
+
+            Array.prototype.slice.call(document.querySelectorAll('.' + _group + '-' + _event.target.value)).map(function (_$field) {
+                return _$field.style.display = 'block';
+            });
+        });
+
+        _$parentSelectField.dispatchEvent(new Event('change'));
+    }
+
+    RED.nodes.registerType('autologyx-api', {
+        category: 'function',
+        color: '#ee3078',
+        defaults: {
+            group: {
+                value: 'targets'
+            },
+            action: {
+                value: 'getMultipleTargets'
+            },
+            hostname: {
+                value: undefined,
+                required: true
+            },
+            port: {
+                value: 443,
+                required: true
+            },
+            connector: {
+                value: undefined,
+                required: true
+            },
+            apiKey: {
+                value: undefined,
+                required: true
+            },
+            authentication: {
+                value: 'noauth',
+                required: true
+            },
+            username: {
+                value: undefined
+            },
+            password: {
+                value: undefined
+            }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'autologyx.png',
+        paletteLabel: 'Autologyx API',
+        label: function () {
+            return this.name || 'Autologyx API';
+        },
+        oneditprepare: function () {
+            initConditionalChildFields('group');
+            initConditionalChildFields('authentication');
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="autologyx-api">
+    <div class="form-row">
+        <label for="node-input-group">
+            <i class="fa fa-list-alt"></i> Group</label>
+        <select id="node-input-group">
+            <option value="targets" selected>Targets</option>
+        </select>
+    </div>
+    <div class="form-row group group-targets">
+        <label for="node-input-action">
+            <i class="fa fa-list-alt"></i> Action</label>
+        <select id="node-input-action">
+            <option value="getMultipleTargets">Get Multiple Targets</option>
+            <option value="getSingleTarget">Get Single Target</option>
+            <option value="createSingleTarget">Create Single Target</option>
+            <option value="updateSingleTarget">Update Single Target</option>
+            <option value="createUpdateSingleTarget">Create/Update Single Target</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-hostname">
+            <i class="fa fa-external-link"></i> Hostname</label>
+        <input type="text" id="node-input-hostname" placeholder="e.g. yourcompany.autologyx.com">
+    </div>
+    <div class="form-row">
+        <label for="node-input-port">
+            <i class="fa fa-anchor"></i> Port</label>
+        <input type="number" id="node-input-port" value="443">
+    </div>
+    <div class="form-row">
+        <label for="node-input-connector">
+            <i class="fa fa-dot-circle-o"></i> Connector</label>
+        <input type="text" id="node-input-connector" placeholder="e.g. Test">
+    </div>
+    <div class="form-row">
+        <label for="node-input-apiKey">
+            <i class="fa fa-key"></i> API Key</label>
+        <input type="text" id="node-input-apiKey" placeholder="e.g. 112076af5945h235084e2ad8dee4aa76aia9f26c">
+    </div>
+    <div class="form-row">
+        <label for="node-input-authentication">
+            <i class="fa fa-key"></i> Authentication</label>
+        <select id="node-input-authentication">
+            <option value="noauth">None</option>
+            <option value="httpbasic">HTTP Basic Authentication</option>
+        </select>
+    </div>
+    <div class="form-row authentication authentication-httpbasic">
+        <label for="node-input-username">
+            <i class="fa fa-user"></i> Username</label>
+        <input type="text" id="node-input-username" placeholder="e.g. username">
+    </div>
+    <div class="form-row authentication authentication-httpbasic">
+        <label for="node-input-password">
+            <i class="fa fa-lock"></i> Password</label>
+        <input type="text" id="node-input-password" placeholder="e.g. password">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="autologyx-api">
+    <p>It does something</p>
+</script>
