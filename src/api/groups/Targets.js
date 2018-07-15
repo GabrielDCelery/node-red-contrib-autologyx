@@ -6,10 +6,6 @@ const ApiGroupInterface = require('./ApiGroupInterface');
 const API_EXTRA_PATHNAME = 'targets';
 
 class Targets extends ApiGroupInterface {
-    constructor (_nodeConfig) {
-        super(_nodeConfig);
-    }
-
     _getMultipleTargets (_nodePayload = {}) {
         this.urlGenerator.setPathName(`${this.API_BASE_PATHNAME}/${API_EXTRA_PATHNAME}`);
         this.urlGenerator.setQuery(_.merge(this.BASE_QUERY_OBJECT, _.pick(_nodePayload, ['limit', 'type', 'offset'])));
@@ -47,7 +43,7 @@ class Targets extends ApiGroupInterface {
         return {
             method: this.METHOD_POST,
             url: this.urlGenerator.generateUrl(),
-            data:_nodePayload
+            data: _nodePayload
         };
     }
 
@@ -75,7 +71,7 @@ class Targets extends ApiGroupInterface {
             throw new Error(`Node Red node payload missing target ID -> ${JSON.stringify(_nodePayload)}`);
         }
 
-        return _id;
+        return _targetId;
     }
 }
 

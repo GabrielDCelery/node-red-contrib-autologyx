@@ -1,0 +1,5 @@
+{
+    "DEFAULT_PROTOCOL": "https",
+    "DEFAULT_PORT": 443,
+    "API_V1_BASE_PATHNAME": "api/v1/"
+}

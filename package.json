@@ -1,23 +1,30 @@
 {
-  "name": "node-red-contrib-autologyx",
-  "version": "1.0.0",
-  "description": "",
-  "main": "autologyx-api.js",
-  "scripts": {
-    "test": "jest"
-  },
-  "author": "",
-  "license": "ISC",
-  "node-red": {
-    "nodes": {
-      "lower-case": "autologyx-api.js"
+    "name": "node-red-contrib-autologyx",
+    "version": "1.0.0",
+    "description": "",
+    "main": "autologyx-api.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "author": "",
+    "license": "ISC",
+    "node-red": {
+        "nodes": {
+            "lower-case": "autologyx-api.js"
+        }
+    },
+    "devDependencies": {
+        "eslint": "^5.1.0",
+        "eslint-config-standard": "^11.0.0",
+        "eslint-plugin-import": "^2.13.0",
+        "eslint-plugin-node": "^6.0.1",
+        "eslint-plugin-promise": "^3.8.0",
+        "eslint-plugin-standard": "^3.1.0",
+        "jest": "^23.4.1"
+    },
+    "dependencies": {
+        "axios": "^0.18.0",
+        "config": "^1.30.0",
+        "lodash": "^4.17.10"
     }
-  },
-  "devDependencies": {
-    "jest": "^23.2.0"
-  },
-  "dependencies": {
-    "axios": "^0.18.0",
-    "lodash": "^4.17.10"
-  }
 }

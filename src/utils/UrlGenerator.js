@@ -3,15 +3,16 @@
 const url = require('url');
 const path = require('path');
 
-const VALID_PROTOCOLS = ['https'];
+const VALID_PROTOCOLS = ['http', 'https', 'ftp'];
+const REGEXP_VALID_PORT = new RegExp(/^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$/);
 
 class UrlGenerator {
-    constructor() {
+    constructor () {
         this.protocol = null;
         this.hostName = null;
         this.port = null;
         this.pathName = null;
-        this.query = null;
+        this.query = {};
     }
 
     setProtocol (_protocol) {
@@ -31,11 +32,11 @@ class UrlGenerator {
     }
 
     setPort (_port) {
-        if (isNaN(_port) || _port < 0 || _port > 65535) {
+        if (!REGEXP_VALID_PORT.test(_port)) {
             throw new Error(`Invalid port -> ${_port}`);
         }
 
-        this.port = _port;
+        this.port = parseInt(_port, 10);
 
         return this;
     }
@@ -44,6 +45,18 @@ class UrlGenerator {
         this.pathName = typeof _pathName === 'string' ? _pathName : path.join(_pathName);
 
         return this;
+    }
+
+    resetQuery () {
+
+    }
+
+    removeQueryParameter () {
+
+    }
+
+    setQueryParameter () {
+
     }
 
     setQuery (_query) {

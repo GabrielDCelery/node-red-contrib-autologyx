@@ -1,22 +1,22 @@
 'use strict';
 
-const AutologyxApiNodeWrapper = require('./src/AutologyxApiNodeWrapper');
+const AutologyxApiNode = require('./src/AutologyxApiNode');
 
 module.exports = function (RED) {
-    function AutologyxApiNode(_config) {
+    function AutologyxApiNodeWrapper (_config) {
         RED.nodes.createNode(this, _config);
 
         let node = this;
-        let autologyxApiNodeWrapper = null;
+        let autologyxApiNode = null;
 
         try {
-            autologyxApiNodeWrapper = new AutologyxApiNodeWrapper().setConfig(_config);
+            autologyxApiNode = new AutologyxApiNode().setConfig(_config);
         } catch (_error) {
             return node.error(`The API returned an error: ${_error.message}`);
         }
 
         node.on('input', _data => {
-            autologyxApiNodeWrapper.sendRequest(_data.payload)
+            autologyxApiNode.sendRequest(_data.payload)
                 .then(_response => {
                     _data.payload = _response;
 
@@ -30,5 +30,6 @@ module.exports = function (RED) {
         });
     }
 
-    RED.nodes.registerType('autologyx-api', AutologyxApiNode);
+    RED.nodes.registerType('autologyx-api', AutologyxApiNodeWrapper);
 }
+;
