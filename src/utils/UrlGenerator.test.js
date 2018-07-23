@@ -141,3 +141,21 @@ describe('setHostName (_hostName)', () => {
         }).toThrow('Invalid hostname -> undefined');
     });
 });
+
+describe('resetQuery ()', () => {
+    test('returns the UrlGenerator instance', () => {
+        const _instance = new UrlGenerator();
+
+        expect(_instance.resetQuery()).toEqual(_instance);
+    });
+
+    test('resets the query parameters', () => {
+        const _instance = new UrlGenerator();
+
+        _instance.query = { foo: 'bar' };
+
+        _instance.resetQuery();
+
+        expect(_instance.query).toEqual({});
+    });
+});
