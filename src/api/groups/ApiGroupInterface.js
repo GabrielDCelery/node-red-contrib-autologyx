@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const config = require('config');
 const UrlGenerator = require('../../utils/UrlGenerator');
-const NodeRedConfig = require('../../utils/NodeRedConfig');
+const NodeRedNodeConfig = require('../../utils/NodeRedNodeConfig');
 
 const METHOD_GET = 'get';
 const METHOD_POST = 'post';
@@ -12,10 +12,10 @@ class ApiGroupInterface {
     constructor (_nodeConfig) {
         this.METHOD_GET = METHOD_GET;
         this.METHOD_POST = METHOD_POST;
-        this.API_BASE_PATHNAME = config.get('API_V1_BASE_PATHNAME');
+        this.API_PATHNAME = config.get('API_V1_PATHNAME');
         this.BASE_QUERY_OBJECT = {
-            connector: NodeRedConfig.extractPropertyFromConfig(_nodeConfig, 'connector'),
-            apiKey: NodeRedConfig.extractPropertyFromConfig(_nodeConfig, 'apiKey')
+            connector: NodeRedNodeConfig.extractPropertyFromConfig(_nodeConfig, 'connector'),
+            apiKey: NodeRedNodeConfig.extractPropertyFromConfig(_nodeConfig, 'apiKey')
         };
         this.urlGenerator = new UrlGenerator()
             .setProtocol(config.get('DEFAULT_PROTOCOL'))

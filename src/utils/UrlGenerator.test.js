@@ -91,5 +91,53 @@ describe('setPort (_port)', () => {
         expect(() => {
             _instance.setPort('foo');
         }).toThrow('Invalid port -> foo');
+
+        expect(() => {
+            _instance.setPort();
+        }).toThrow('Invalid port -> undefined');
+    });
+});
+
+describe('setHostName (_hostName)', () => {
+    test('sets a valid host name', () => {
+        const _instance = new UrlGenerator();
+
+        _instance.setHostName('test.autologyx.com');
+
+        expect(_instance.hostName).toEqual('test.autologyx.com');
+
+        _instance.setHostName('http://test.autologyx.com');
+
+        expect(_instance.hostName).toEqual('test.autologyx.com');
+
+        _instance.setHostName('https://test.autologyx.com');
+
+        expect(_instance.hostName).toEqual('test.autologyx.com');
+
+        _instance.setHostName('http://test.autologyx.com/something');
+
+        expect(_instance.hostName).toEqual('test.autologyx.com');
+
+        _instance.setHostName('test.autologyx.com/something');
+
+        expect(_instance.hostName).toEqual('test.autologyx.com');
+    });
+
+    test('returns the UrlGenerator instance', () => {
+        const _instance = new UrlGenerator();
+
+        expect(_instance.setHostName('test.autologyx.com')).toEqual(_instance);
+    });
+
+    test('throws an error if _hostName is not a valid host name', () => {
+        const _instance = new UrlGenerator();
+
+        expect(() => {
+            _instance.setHostName('training.autologyx');
+        }).toThrow('Invalid hostname -> training.autologyx');
+
+        expect(() => {
+            _instance.setHostName();
+        }).toThrow('Invalid hostname -> undefined');
     });
 });

@@ -6,7 +6,7 @@ const axios = require('axios');
 const Authenticator = require('./Authenticator');
 const ApiGroupConnector = require('./ApiGroupConnector');
 
-class AutologyxApiNodeWrapper {
+class AutologyxApiNode {
     constructor () {
         this.authenticator = new Authenticator();
         this.apiGroupConnector = new ApiGroupConnector();
@@ -29,4 +29,4 @@ class AutologyxApiNodeWrapper {
     }
 }
 
-module.exports = AutologyxApiNodeWrapper;
+module.exports = AutologyxApiNode;

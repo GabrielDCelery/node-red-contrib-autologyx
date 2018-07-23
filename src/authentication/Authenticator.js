@@ -1,6 +1,6 @@
 'use strict';
 
-const NodeRedConfig = require('../utils/NodeRedConfig');
+const NodeRedNodeConfig = require('../utils/NodeRedNodeConfig');
 
 const AUTHENTICATION_METHODS = {
     noauth: require('./methods/NoAuth'),
@@ -13,7 +13,7 @@ class Authenticator {
     }
 
     setConfig (_nodeConfig = {}) {
-        const _authentication = NodeRedConfig.extractPropertyFromConfig(_nodeConfig, 'authentication');
+        const _authentication = NodeRedNodeConfig.extractValue(_nodeConfig, 'authentication');
 
         if (!AUTHENTICATION_METHODS[_authentication]) {
             throw new Error(`Trying to instantiate a non-existent authentication class -> ${_authentication}`);

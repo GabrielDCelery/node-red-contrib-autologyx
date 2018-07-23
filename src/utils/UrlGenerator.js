@@ -1,10 +1,14 @@
 'use strict';
 
+const _ = require('lodash');
 const url = require('url');
 const path = require('path');
 
 const VALID_PROTOCOLS = ['http', 'https', 'ftp'];
 const REGEXP_VALID_PORT = new RegExp(/^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$/);
+const REGEXP_VALID_URL = new RegExp(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?$/);
+const REGEXP_VALID_HOSTNAME = new RegExp(/^[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?$/);
+const REGEXP_PROTOCOL = new RegExp(/(^\w+:|^)\/\//);
 
 class UrlGenerator {
     constructor () {
@@ -26,7 +30,23 @@ class UrlGenerator {
     }
 
     setHostName (_hostName) {
-        this.hostName = new url.URL(_hostName).hostname;
+        if (_.isNil(_hostName)) {
+            throw new Error(`Invalid hostname -> ${_hostName}`);
+        }
+
+        let _normalizedHostName = _hostName;
+
+        if (REGEXP_VALID_URL.test(_normalizedHostName)) {
+            _normalizedHostName = _normalizedHostName.replace(REGEXP_PROTOCOL, '');
+        }
+
+        _normalizedHostName = _normalizedHostName.split('/')[0];
+
+        if (!REGEXP_VALID_HOSTNAME.test(_normalizedHostName)) {
+            throw new Error(`Invalid hostname -> ${_normalizedHostName}`);
+        }
+
+        this.hostName = _normalizedHostName;
 
         return this;
     }
@@ -48,15 +68,17 @@ class UrlGenerator {
     }
 
     resetQuery () {
+        this.query = {};
 
+        return this;
     }
 
     removeQueryParameter () {
-
+        return this;
     }
 
     setQueryParameter () {
-
+        return this;
     }
 
     setQuery (_query) {

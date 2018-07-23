@@ -3,11 +3,11 @@
 const _ = require('lodash');
 const ApiGroupInterface = require('./ApiGroupInterface');
 
-const API_EXTRA_PATHNAME = 'targets';
+const GROUP_PATHNAME = 'targets';
 
 class Targets extends ApiGroupInterface {
     _getMultipleTargets (_nodePayload = {}) {
-        this.urlGenerator.setPathName(`${this.API_BASE_PATHNAME}/${API_EXTRA_PATHNAME}`);
+        this.urlGenerator.setPathName(`${this.API_PATHNAME}/${GROUP_PATHNAME}`);
         this.urlGenerator.setQuery(_.merge(this.BASE_QUERY_OBJECT, _.pick(_nodePayload, ['limit', 'type', 'offset'])));
 
         return {
@@ -17,7 +17,7 @@ class Targets extends ApiGroupInterface {
     }
 
     _getSingleTarget (_nodePayload = {}) {
-        this.urlGenerator.setPathName(`${this.API_BASE_PATHNAME}/${API_EXTRA_PATHNAME}/${Targets._extractTargetIdFromPayload(_nodePayload)}`);
+        this.urlGenerator.setPathName(`${this.API_PATHNAME}/${GROUP_PATHNAME}/${Targets._extractTargetIdFromPayload(_nodePayload)}`);
         this.urlGenerator.setQuery(this.BASE_QUERY_OBJECT);
 
         return {
@@ -37,7 +37,7 @@ class Targets extends ApiGroupInterface {
     }
 
     _updateSingleTarget (_nodePayload = {}) {
-        this.urlGenerator.setPathName(`${this.API_BASE_PATHNAME}/${API_EXTRA_PATHNAME}/${Targets._extractTargetIdFromPayload(_nodePayload)}`);
+        this.urlGenerator.setPathName(`${this.API_PATHNAME}/${GROUP_PATHNAME}/${Targets._extractTargetIdFromPayload(_nodePayload)}`);
         this.urlGenerator.setQuery(this.BASE_QUERY_OBJECT);
 
         return {
@@ -50,7 +50,7 @@ class Targets extends ApiGroupInterface {
     _createUpdateSingleTarget (_nodePayload = {}) {
         const _targetId = Targets._extractTargetIdFromPayload(_nodePayload, true) || '';
 
-        this.urlGenerator.setPathName(`${this.API_BASE_PATHNAME}/${API_EXTRA_PATHNAME}/${_targetId}`);
+        this.urlGenerator.setPathName(`${this.API_PATHNAME}/${GROUP_PATHNAME}/${_targetId}`);
         this.urlGenerator.setQuery(this.BASE_QUERY_OBJECT);
 
         return {

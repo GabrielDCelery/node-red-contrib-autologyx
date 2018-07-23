@@ -2,8 +2,8 @@
 
 const _ = require('lodash');
 
-class NodeRedConfig {
-    static extractPropertyFromConfig (_nodeConfig, _propertyName) {
+class NodeRedNodeConfig {
+    static extractValue (_nodeConfig, _propertyName) {
         const _extracted = _.get(_nodeConfig, _propertyName, null);
 
         if (!_extracted) {
@@ -14,4 +14,4 @@ class NodeRedConfig {
     }
 }
 
-module.exports = NodeRedConfig;
+module.exports = NodeRedNodeConfig;

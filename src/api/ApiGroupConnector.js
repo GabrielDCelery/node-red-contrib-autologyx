@@ -1,5 +1,7 @@
 'use strict';
 
+const NodeRedNodeConfig = require('../utils/NodeRedNodeConfig');
+
 const API_GROUPS = {
     targets: require('./groups/Targets')
 };
@@ -10,7 +12,7 @@ class ApiGroupConnector {
     }
 
     setConfig (_nodeConfig = {}) {
-        const _apiGroup = _nodeConfig.group;
+        const _apiGroup = NodeRedNodeConfig.extractValue(_nodeConfig, 'apiGroup');
 
         if (!API_GROUPS[_apiGroup]) {
             throw new Error(`Trying to instantiate a non-existent api group -> ${_apiGroup}`);
